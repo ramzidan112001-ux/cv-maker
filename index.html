@@ -1,40 +1,434 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>CV Maker</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Maker Pro</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      color: #111827;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 42px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #4b5563;
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .primary {
+      background: #111827;
+      color: white;
+    }
+
+    .primary:hover {
+      opacity: 0.92;
+    }
+
+    .secondary {
+      background: #eef2ff;
+      color: #3730a3;
+    }
+
+    .secondary:hover {
+      background: #e0e7ff;
+    }
+
+    .preview {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 30px;
+      min-height: 700px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .cv-header {
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+    }
+
+    .cv-name {
+      font-size: 34px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+
+    .cv-role {
+      font-size: 18px;
+      color: #4f46e5;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .cv-contact {
+      color: #4b5563;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-bottom: 22px;
+    }
+
+    .section h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #111827;
+      border-left: 4px solid #4f46e5;
+      padding-left: 10px;
+    }
+
+    .section p {
+      margin: 0;
+      line-height: 1.7;
+      color: #374151;
+    }
+
+    .list-lines {
+      white-space: pre-line;
+      color: #374151;
+      line-height: 1.8;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 20px;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .preview {
+        min-height: auto;
+      }
+    }
+  </style>
 </head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>CV Maker Pro</h1>
+      <p>Create a professional resume and download it as PDF</p>
+    </div>
 
-<body style="font-family:Arial;text-align:center;background:#f2f2f2">
+    <div class="grid">
+      <div class="card">
+        <h2>Enter Your Information</h2>
 
-<h2>CV Maker</h2>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input id="name" placeholder="Rami Zidan" />
+        </div>
 
-<input id="name" placeholder="Name"><br><br>
-<input id="job" placeholder="Job"><br><br>
-<input id="email" placeholder="Email"><br><br>
+        <div class="form-group">
+          <label for="job">Job Title</label>
+          <input id="job" placeholder="Writer / Designer / Radiology Student" />
+        </div>
 
-<button onclick="makeCV()">Download CV PDF</button>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" placeholder="example@email.com" />
+        </div>
 
-<script>
-function makeCV(){
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input id="phone" placeholder="+972 ..." />
+        </div>
 
-const { jsPDF } = window.jspdf;
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input id="address" placeholder="Netanya, Israel" />
+        </div>
 
-let name=document.getElementById("name").value;
-let job=document.getElementById("job").value;
-let email=document.getElementById("email").value;
+        <div class="form-group">
+          <label for="summary">Professional Summary</label>
+          <textarea id="summary" placeholder="Write a short professional summary about yourself..."></textarea>
+        </div>
 
-let doc=new jsPDF();
+        <div class="form-group">
+          <label for="skills">Skills</label>
+          <textarea id="skills" placeholder="Example:
+Communication
+Teamwork
+Writing
+Microsoft Office"></textarea>
+        </div>
 
-doc.text("CV",90,20);
-doc.text("Name: "+name,20,40);
-doc.text("Job: "+job,20,60);
-doc.text("Email: "+email,20,80);
+        <div class="form-group">
+          <label for="experience">Experience</label>
+          <textarea id="experience" placeholder="Example:
+Content Writer - XYZ Company - 2024
+Created articles and marketing content..."></textarea>
+        </div>
 
-doc.save("cv.pdf");
-}
-</script>
+        <div class="form-group">
+          <label for="education">Education</label>
+          <textarea id="education" placeholder="Example:
+Diploma in Radiology
+University Name - 2025"></textarea>
+        </div>
 
+        <div class="form-group">
+          <label for="languages">Languages</label>
+          <textarea id="languages" placeholder="Example:
+Arabic
+English"></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="secondary" onclick="fillDemo()">Fill Demo Data</button>
+          <button class="primary" onclick="downloadPDF()">Download CV PDF</button>
+        </div>
+      </div>
+
+      <div class="preview" id="cvPreview">
+        <div class="cv-header">
+          <div class="cv-name" id="previewName">Your Name</div>
+          <div class="cv-role" id="previewJob">Your Job Title</div>
+          <div class="cv-contact" id="previewContact">
+            Email | Phone | Address
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Profile</h3>
+          <p id="previewSummary">Your professional summary will appear here.</p>
+        </div>
+
+        <div class="section">
+          <h3>Skills</h3>
+          <div class="list-lines" id="previewSkills">Your skills will appear here.</div>
+        </div>
+
+        <div class="section">
+          <h3>Experience</h3>
+          <div class="list-lines" id="previewExperience">Your experience will appear here.</div>
+        </div>
+
+        <div class="section">
+          <h3>Education</h3>
+          <div class="list-lines" id="previewEducation">Your education will appear here.</div>
+        </div>
+
+        <div class="section">
+          <h3>Languages</h3>
+          <div class="list-lines" id="previewLanguages">Your languages will appear here.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Built with GitHub Pages
+    </div>
+  </div>
+
+  <script>
+    const ids = ["name", "job", "email", "phone", "address", "summary", "skills", "experience", "education", "languages"];
+
+    ids.forEach(id => {
+      document.getElementById(id).addEventListener("input", updatePreview);
+    });
+
+    function valueOf(id, fallback = "") {
+      const val = document.getElementById(id).value.trim();
+      return val || fallback;
+    }
+
+    function updatePreview() {
+      document.getElementById("previewName").textContent = valueOf("name", "Your Name");
+      document.getElementById("previewJob").textContent = valueOf("job", "Your Job Title");
+
+      const email = valueOf("email", "Email");
+      const phone = valueOf("phone", "Phone");
+      const address = valueOf("address", "Address");
+      document.getElementById("previewContact").textContent = `${email} | ${phone} | ${address}`;
+
+      document.getElementById("previewSummary").textContent = valueOf("summary", "Your professional summary will appear here.");
+      document.getElementById("previewSkills").textContent = valueOf("skills", "Your skills will appear here.");
+      document.getElementById("previewExperience").textContent = valueOf("experience", "Your experience will appear here.");
+      document.getElementById("previewEducation").textContent = valueOf("education", "Your education will appear here.");
+      document.getElementById("previewLanguages").textContent = valueOf("languages", "Your languages will appear here.");
+    }
+
+    function fillDemo() {
+      document.getElementById("name").value = "Rami Zidan";
+      document.getElementById("job").value = "Professional Writer";
+      document.getElementById("email").value = "ramzidan112001@gmail.com";
+      document.getElementById("phone").value = "+972 50 000 0000";
+      document.getElementById("address").value = "Netanya, Israel";
+      document.getElementById("summary").value = "Motivated and creative professional with strong communication skills and a passion for creating high-quality work. Seeking opportunities to grow and contribute in a dynamic environment.";
+      document.getElementById("skills").value = "Writing\nCommunication\nProblem Solving\nTeamwork\nTime Management";
+      document.getElementById("experience").value = "Content Writer - Freelance - 2024\nCreated written content for online platforms and social media.\n\nCustomer Service Assistant - 2023\nHelped clients and solved daily issues professionally.";
+      document.getElementById("education").value = "Radiology Studies\nCollege / Institute Name - Expected Graduation 2026";
+      document.getElementById("languages").value = "Arabic\nEnglish";
+      updatePreview();
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      let y = 20;
+
+      const name = valueOf("name", "Your Name");
+      const job = valueOf("job", "Your Job Title");
+      const email = valueOf("email");
+      const phone = valueOf("phone");
+      const address = valueOf("address");
+      const summary = valueOf("summary");
+      const skills = valueOf("skills");
+      const experience = valueOf("experience");
+      const education = valueOf("education");
+      const languages = valueOf("languages");
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(22);
+      doc.text(name, 20, y);
+      y += 10;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(13);
+      doc.text(job, 20, y);
+      y += 8;
+
+      const contactLine = [email, phone, address].filter(Boolean).join(" | ");
+      if (contactLine) {
+        doc.setFontSize(10);
+        doc.text(contactLine, 20, y);
+        y += 10;
+      }
+
+      function addSection(title, content) {
+        if (!content) return;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text(title, 20, y);
+        y += 7;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+
+        const lines = doc.splitTextToSize(content, 170);
+        doc.text(lines, 20, y);
+        y += lines.length * 6 + 6;
+
+        if (y > 260) {
+          doc.addPage();
+          y = 20;
+        }
+      }
+
+      addSection("Professional Summary", summary);
+      addSection("Skills", skills);
+      addSection("Experience", experience);
+      addSection("Education", education);
+      addSection("Languages", languages);
+
+      doc.save("cv.pdf");
+    }
+
+    updatePreview();
+  </script>
 </body>
 </html>
