@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>CV Maker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body style="font-family:Arial;text-align:center;background:#f2f2f2">
+
+<h2>CV Maker</h2>
+
+<input id="name" placeholder="Name"><br><br>
+<input id="job" placeholder="Job"><br><br>
+<input id="email" placeholder="Email"><br><br>
+
+<button onclick="makeCV()">Download CV PDF</button>
+
+<script>
+function makeCV(){
+
+const { jsPDF } = window.jspdf;
+
+let name=document.getElementById("name").value;
+let job=document.getElementById("job").value;
+let email=document.getElementById("email").value;
+
+let doc=new jsPDF();
+
+doc.text("CV",90,20);
+doc.text("Name: "+name,20,40);
+doc.text("Job: "+job,20,60);
+doc.text("Email: "+email,20,80);
+
+doc.save("cv.pdf");
+}
+</script>
+
+</body>
+</html>
