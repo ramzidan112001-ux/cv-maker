@@ -9,12 +9,7 @@
 <title>Student Tools Pro</title>
 
 <style>
-body
-<h1>Student Tools Pro</h1>
-<p>This website provides tools for students like GPA calculator, percentage calculator, and study timer.</p>
-<p>It helps students improve productivity and manage their study time efficiently.</p>
-<p>This website provides tools for students like GPA calculator, percentage calculator, and study timer.</p>
-<p>It helps students improve productivity and manage their study time efficiently.</p>
+body{
     margin:0;
     font-family:Arial;
     background:#f4f7fb;
@@ -36,7 +31,6 @@ button{
     border-radius:10px;
     background:#3b82f6;
     color:white;
-    font-size:16px;
 }
 input{
     width:100%;
@@ -51,12 +45,14 @@ input{
 
 <body>
 
+<h1>Student Tools Pro</h1>
+<p>This website provides tools for students like GPA calculator, percentage calculator, and study timer.</p>
+<p>It helps students improve productivity and manage their study time efficiently.</p>
+
 <div class="container">
 
-<h1>🎓 Student Tools Pro</h1>
-
 <div class="card">
-<h2>📊 GPA Calculator</h2>
+<h2>GPA Calculator</h2>
 <input id="g1" placeholder="Grade 1">
 <input id="g2" placeholder="Grade 2">
 <input id="g3" placeholder="Grade 3">
@@ -65,7 +61,7 @@ input{
 </div>
 
 <div class="card">
-<h2>📐 Percentage</h2>
+<h2>Percentage</h2>
 <input id="score" placeholder="Score">
 <input id="total" placeholder="Total">
 <button onclick="calcPercent()">Calculate</button>
@@ -73,7 +69,7 @@ input{
 </div>
 
 <div class="card">
-<h2>⏱ Timer</h2>
+<h2>Timer</h2>
 <p id="timer">25:00</p>
 <button onclick="startTimer()">Start</button>
 <button onclick="resetTimer()">Reset</button>
