@@ -2,27 +2,70 @@
 <html>
 <head>
 <title>Student Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: Arial;
+  background: #f5f7fb;
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  margin: 20px;
+}
+
+.card {
+  background: white;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #007bff;
+  color: white;
+  margin-top: 10px;
+}
+</style>
 </head>
 
-<body style="font-family:Arial; text-align:center; background:#f5f5f5;">
+<body>
 
 <h1>🎓 Student Tools</h1>
 
-<!-- GPA -->
-<div style="background:white; padding:20px; margin:20px; border-radius:10px;">
+<div class="card">
   <h2>📊 GPA Calculator</h2>
-  <input id="g1" placeholder="Grade 1"><br><br>
-  <input id="g2" placeholder="Grade 2"><br><br>
-  <input id="g3" placeholder="Grade 3"><br><br>
+  <input id="g1" placeholder="Grade 1"><br>
+  <input id="g2" placeholder="Grade 2"><br>
+  <input id="g3" placeholder="Grade 3"><br>
   <button onclick="calc()">Calculate</button>
   <h3 id="res"></h3>
 </div>
 
-<!-- Timer -->
-<div style="background:white; padding:20px; margin:20px; border-radius:10px;">
+<div class="card">
   <h2>⏱️ Study Timer</h2>
   <h1 id="time">25:00</h1>
   <button onclick="start()">Start</button>
+</div>
+
+<div class="card">
+  <h2>📅 Study Planner</h2>
+  <input id="task" placeholder="Enter task"><br>
+  <button onclick="addTask()">Add</button>
+  <ul id="list"></ul>
 </div>
 
 <script>
@@ -36,42 +79,15 @@ function calc() {
 
 let t = 1500;
 function start(){
-  setInterval(()=>{
+  let interval = setInterval(()=>{
     t--;
     let m = Math.floor(t/60);
     let s = t%60;
     time.innerText = m+":"+(s<10?"0":"")+s;
+    if(t<=0) clearInterval(interval);
   },1000);
 }
-</script>
-<div style="background:white; padding:20px; margin:20px; border-radius:10px;">
-  <h2>📅 Study Planner</h2>
-  <input id="task" placeholder="Enter task"><br><br>
-  <button onclick="addTask()">Add</button>
-  <ul id="list"></ul>
-</div>
 
-<script>
- function addTask(){
-  let task = document.getElementById("task").value;
-  if(task){
-    let li = document.createElement("li");
-    li.innerText = task;
-    document.getElementById("list").appendChild(li);
-  }
-}
-  if(task){
-    let li = document.createElement("li");
-    li.innerText = task;
-    document.getElementById("list").appendChild(li);
-  }
-}
-</script>
-</
-  <h2>📅 Study
-  <input id=
-
-<script>
 function addTask(){
   let task = document.getElementById("task").value;
   if(task){
@@ -81,4 +97,6 @@ function addTask(){
   }
 }
 </script>
+
+</body>
 </html>
