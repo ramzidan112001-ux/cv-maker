@@ -1,61 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2386067854383195"
-     crossorigin="anonymous"></script>
+<head>
+
+<meta name="google-adsense-account" content="ca-pub-2386067854383195">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Student Tools Pro</title>
-
-<!-- Google AdSense -->
 
 <style>
 body{
-  margin:0;
-  font-family:Arial;
-  background:#f4f7fb;
+    margin:0;
+    font-family:Arial;
+    background:#f4f7fb;
 }
 .container{
-  max-width:900px;
-  margin:auto;
-  padding:15px;
+    max-width:900px;
+    margin:auto;
+    padding:15px;
 }
-h1{margin:0}
 .card{
-  background:white;
-  padding:20px;
-  border-radius:20px;
-  margin-top:15px;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    margin-top:15px;
 }
 button{
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-weight:bold;
-  margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:#3b82f6;
+    color:white;
+    font-size:16px;
 }
 input{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  margin-top:5px;
-}
-.result{
-  margin-top:10px;
-  font-weight:bold;
-  text-align:center;
-}
-.top-ad,.bottom-ad{
-  margin-top:15px;
-  padding:15px;
-  border-radius:15px;
-  border:2px dashed #ccc;
-  text-align:center;
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+    border-radius:10px;
+    border:1px solid #ddd;
 }
 </style>
+
 </head>
 
 <body>
@@ -64,113 +50,66 @@ input{
 
 <h1>🎓 Student Tools Pro</h1>
 
-<!-- Top Ad -->
-<div class="top-ad">
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="YOUR-ADSENSE-ID"
-     data-ad-slot="YOUR-TOP-AD-SLOT"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-</div>
-
 <div class="card">
 <h2>📊 GPA Calculator</h2>
 <input id="g1" placeholder="Grade 1">
 <input id="g2" placeholder="Grade 2">
 <input id="g3" placeholder="Grade 3">
-<button onclick="gpa()">Calculate</button>
-<div class="result" id="gpa"></div>
+<button onclick="calcGPA()">Calculate</button>
+<p id="result"></p>
 </div>
 
 <div class="card">
 <h2>📐 Percentage</h2>
 <input id="score" placeholder="Score">
 <input id="total" placeholder="Total">
-<button onclick="percent()">Calculate</button>
-<div class="result" id="per"></div>
+<button onclick="calcPercent()">Calculate</button>
+<p id="percentResult"></p>
 </div>
 
 <div class="card">
 <h2>⏱ Timer</h2>
-<div id="time">25:00</div>
-<button onclick="start()">Start</button>
-<button onclick="reset()">Reset</button>
-</div>
-
-<div class="card">
-<h2>📅 Tasks</h2>
-<input id="task">
-<button onclick="add()">Add</button>
-<ul id="list"></ul>
-</div>
-
-<div class="card">
-<h2>📝 Notes</h2>
-<textarea id="notes" style="width:100%;height:100px"></textarea>
-<button onclick="save()">Save</button>
-</div>
-
-<!-- Bottom Ad -->
-<div class="bottom-ad">
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="YOUR-ADSENSE-ID"
-     data-ad-slot="YOUR-BOTTOM-AD-SLOT"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
+<p id="timer">25:00</p>
+<button onclick="startTimer()">Start</button>
+<button onclick="resetTimer()">Reset</button>
 </div>
 
 </div>
 
 <script>
-function gpa(){
-let a=+g1.value||0;
-let b=+g2.value||0;
-let c=+g3.value||0;
-gpa.innerText="GPA: "+((a+b+c)/3).toFixed(2);
+function calcGPA(){
+    let g1 = parseFloat(document.getElementById("g1").value) || 0;
+    let g2 = parseFloat(document.getElementById("g2").value) || 0;
+    let g3 = parseFloat(document.getElementById("g3").value) || 0;
+    let avg = (g1+g2+g3)/3;
+    document.getElementById("result").innerText = "GPA: " + avg.toFixed(2);
 }
 
-function percent(){
-let s=+score.value||0;
-let t=+total.value||0;
-per.innerText="Percentage: "+((s/t)*100).toFixed(2)+"%";
+function calcPercent(){
+    let score = parseFloat(document.getElementById("score").value) || 0;
+    let total = parseFloat(document.getElementById("total").value) || 1;
+    let percent = (score/total)*100;
+    document.getElementById("percentResult").innerText = percent.toFixed(2) + "%";
 }
 
-let sec=1500,interval;
+let time = 1500;
+let interval;
 
-function start(){
-interval=setInterval(()=>{
-if(sec>0){
-sec--;
-time.innerText=Math.floor(sec/60)+":"+(sec%60<10?"0":"")+sec%60;
-}
-},1000);
-}
-
-function reset(){
-clearInterval(interval);
-sec=1500;
-time.innerText="25:00";
+function startTimer(){
+    interval = setInterval(()=>{
+        if(time<=0) return;
+        time--;
+        let m = Math.floor(time/60);
+        let s = time%60;
+        document.getElementById("timer").innerText =
+        (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+    },1000);
 }
 
-function add(){
-let li=document.createElement("li");
-li.innerText=task.value;
-list.appendChild(li);
-task.value="";
-}
-
-function save(){
-localStorage.setItem("notes",notes.value);
-}
-
-window.onload=()=>{
-notes.value=localStorage.getItem("notes")||"";
-try{
-(adsbygoogle = window.adsbygoogle || []).push({});
-(adsbygoogle = window.adsbygoogle || []).push({});
-}catch(e){}
+function resetTimer(){
+    clearInterval(interval);
+    time = 1500;
+    document.getElementById("timer").innerText = "25:00";
 }
 </script>
 
