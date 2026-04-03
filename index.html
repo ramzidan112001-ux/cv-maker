@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 
-<meta name="google-adsense-account" content="ca-pub-2386067854383195">
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2386067854383195"
+     crossorigin="anonymous"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,105 +16,8 @@ body{
     font-family:Arial;
     background:#f4f7fb;
 }
+
 .container{
     max-width:900px;
     margin:auto;
-    padding:15px;
-}
-.card{
-    background:white;
-    padding:20px;
-    border-radius:20px;
-    margin-top:15px;
-}
-button{
-    padding:10px 20px;
-    border:none;
-    border-radius:10px;
-    background:#3b82f6;
-    color:white;
-}
-input{
-    width:100%;
-    padding:10px;
-    margin:5px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
-}
-</style>
-
-</head>
-
-<body>
-
-<h1>Student Tools Pro</h1>
-<p>This website provides tools for students like GPA calculator, percentage calculator, and study timer.</p>
-<p>It helps students improve productivity and manage their study time efficiently.</p>
-
-<div class="container">
-
-<div class="card">
-<h2>GPA Calculator</h2>
-<input id="g1" placeholder="Grade 1">
-<input id="g2" placeholder="Grade 2">
-<input id="g3" placeholder="Grade 3">
-<button onclick="calcGPA()">Calculate</button>
-<p id="result"></p>
-</div>
-
-<div class="card">
-<h2>Percentage</h2>
-<input id="score" placeholder="Score">
-<input id="total" placeholder="Total">
-<button onclick="calcPercent()">Calculate</button>
-<p id="percentResult"></p>
-</div>
-
-<div class="card">
-<h2>Timer</h2>
-<p id="timer">25:00</p>
-<button onclick="startTimer()">Start</button>
-<button onclick="resetTimer()">Reset</button>
-</div>
-
-</div>
-
-<script>
-function calcGPA(){
-    let g1 = parseFloat(document.getElementById("g1").value) || 0;
-    let g2 = parseFloat(document.getElementById("g2").value) || 0;
-    let g3 = parseFloat(document.getElementById("g3").value) || 0;
-    let avg = (g1+g2+g3)/3;
-    document.getElementById("result").innerText = "GPA: " + avg.toFixed(2);
-}
-
-function calcPercent(){
-    let score = parseFloat(document.getElementById("score").value) || 0;
-    let total = parseFloat(document.getElementById("total").value) || 1;
-    let percent = (score/total)*100;
-    document.getElementById("percentResult").innerText = percent.toFixed(2) + "%";
-}
-
-let time = 1500;
-let interval;
-
-function startTimer(){
-    interval = setInterval(()=>{
-        if(time<=0) return;
-        time--;
-        let m = Math.floor(time/60);
-        let s = time%60;
-        document.getElementById("timer").innerText =
-        (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
-    },1000);
-}
-
-function resetTimer(){
-    clearInterval(interval);
-    time = 1500;
-    document.getElementById("timer").innerText = "25:00";
-}
-</script>
-
-</body>
-</html>
+    padding
