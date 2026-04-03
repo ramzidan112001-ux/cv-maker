@@ -454,6 +454,26 @@ function setLang(lang) {
     location.reload();
   }
 }
+</script><div style="text-align:center; margin:20px;">
+  <select onchange="setLang(this.value)" style="padding:10px;">
+    <option value="ar">العربية</option>
+    <option value="en">English</option>
+  </select>
+</div>
+
+<script>
+function setLang(lang) {
+  if (lang === "ar") {
+    document.body.dir = "rtl";
+    document.body.innerHTML = document.body.innerHTML
+      .replace("Skills", "المهارات")
+      .replace("Experience", "الخبرات")
+      .replace("Education", "التعليم")
+      .replace("Languages", "اللغات");
+  } else {
+    location.reload();
+  }
+}
 </script>
 </body>
 </html>
