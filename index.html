@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Student Tools Pro</title>
-  <meta name="description" content="Student Tools Pro helps students calculate GPA, track study time, manage tasks, save notes, and calculate percentages." />
+
+  <title>Student Tools Pro | Smart Study App</title>
+  <meta name="description" content="Student Tools Pro is a premium student website with GPA calculator, study timer, planner, notes, percentage calculator, and monetization-ready ad spaces." />
+  <meta name="keywords" content="student tools, GPA calculator, study timer, percentage calculator, student planner, study app" />
   <meta name="theme-color" content="#2563eb" />
 
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -16,7 +18,7 @@
     :root {
       --bg: #f4f7fb;
       --bg2: #e9f0fb;
-      --card: rgba(255,255,255,0.85);
+      --card: rgba(255,255,255,0.86);
       --text: #0f172a;
       --muted: #64748b;
       --primary: #2563eb;
@@ -31,7 +33,7 @@
     body.dark {
       --bg: #0b1220;
       --bg2: #111827;
-      --card: rgba(17,24,39,0.82);
+      --card: rgba(17,24,39,0.84);
       --text: #f8fafc;
       --muted: #94a3b8;
       --primary: #3b82f6;
@@ -68,7 +70,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.52);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
@@ -78,7 +80,7 @@
     }
 
     .topbar-inner {
-      max-width: 1150px;
+      max-width: 1180px;
       margin: auto;
       padding: 14px 18px;
       display: flex;
@@ -125,8 +127,7 @@
       align-items: center;
     }
 
-    .nav a,
-    .mode-btn {
+    .nav a, .mode-btn {
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
@@ -139,7 +140,7 @@
     }
 
     .container {
-      max-width: 1150px;
+      max-width: 1180px;
       margin: auto;
       padding: 22px 16px 40px;
     }
@@ -183,6 +184,35 @@
       color: rgba(255,255,255,0.95);
     }
 
+    .hero-actions {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .hero-btn {
+      border: none;
+      padding: 12px 18px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-btn.primary {
+      background: white;
+      color: #2563eb;
+    }
+
+    .hero-btn.secondary {
+      background: rgba(255,255,255,0.14);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.22);
+    }
+
     .badges {
       position: relative;
       display: flex;
@@ -198,6 +228,22 @@
       border: 1px solid rgba(255,255,255,0.22);
       font-size: 13px;
       font-weight: 700;
+    }
+
+    .top-ad, .bottom-ad {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.55);
+      border: 2px dashed rgba(148,163,184,0.35);
+      color: var(--muted);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    body.dark .top-ad,
+    body.dark .bottom-ad {
+      background: rgba(17,24,39,0.7);
     }
 
     .stats {
@@ -417,15 +463,6 @@
       cursor: pointer;
     }
 
-    .ad-ready {
-      border: 2px dashed rgba(148,163,184,0.35);
-      padding: 22px;
-      border-radius: 22px;
-      text-align: center;
-      color: var(--muted);
-      background: rgba(148,163,184,0.08);
-    }
-
     .feature-list {
       display: grid;
       gap: 12px;
@@ -480,6 +517,11 @@
         GPA calculator, percentage calculator, focus timer, smart planner, notes, dark mode, and monetization-ready layout.
       </p>
 
+      <div class="hero-actions">
+        <button class="hero-btn primary" onclick="copyLink()">Copy Link</button>
+        <button class="hero-btn secondary" onclick="shareSite()">Share Site</button>
+      </div>
+
       <div class="badges">
         <div class="badge">Premium Design</div>
         <div class="badge">GPA</div>
@@ -489,6 +531,10 @@
         <div class="badge">Ad Ready</div>
       </div>
     </section>
+
+    <div class="top-ad" id="ads">
+      Top Ad Space Ready — Place your Google AdSense code here later.
+    </div>
 
     <section class="stats">
       <div class="stat">
@@ -571,14 +617,6 @@
         <div class="result" id="notesMessage">Your notes are ready.</div>
       </div>
 
-      <div class="card" id="ads">
-        <h3>💰 Ad Space</h3>
-        <p class="small">Ready for AdSense later.</p>
-        <div class="ad-ready">
-          Google AdSense Ready Area
-        </div>
-      </div>
-
       <div class="card" id="about">
         <h3>📘 About</h3>
         <p class="small">A modern toolkit made for students.</p>
@@ -601,6 +639,10 @@
         </div>
       </div>
     </section>
+
+    <div class="bottom-ad">
+      Bottom Ad Space Ready — Add another AdSense block here later.
+    </div>
 
     <div class="footer">
       Student Tools Pro • Built for students
@@ -769,6 +811,32 @@
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("student_dark_mode_pro", isDark ? "on" : "off");
       document.querySelector(".mode-btn").innerText = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+    }
+
+    async function copyLink() {
+      const url = window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        alert("Link copied!");
+      } catch {
+        alert("Could not copy the link.");
+      }
+    }
+
+    async function shareSite() {
+      const data = {
+        title: "Student Tools Pro",
+        text: "Check out this student tools website!",
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(data);
+        } catch (e) {}
+      } else {
+        copyLink();
+      }
     }
 
     window.onload = function () {
