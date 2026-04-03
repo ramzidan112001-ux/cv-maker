@@ -1,862 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Student Tools Pro | Smart Study App</title>
-  <meta name="description" content="Student Tools Pro is a premium student website with GPA calculator, study timer, planner, notes, percentage calculator, and monetization-ready ad spaces." />
-  <meta name="keywords" content="student tools, GPA calculator, study timer, percentage calculator, student planner, study app" />
-  <meta name="theme-color" content="#2563eb" />
-
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Student Tools Pro" />
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" />
-
-  <style>
-    :root {
-      --bg: #f4f7fb;
-      --bg2: #e9f0fb;
-      --card: rgba(255,255,255,0.86);
-      --text: #0f172a;
-      --muted: #64748b;
-      --primary: #2563eb;
-      --primary2: #60a5fa;
-      --success: #10b981;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --border: rgba(255,255,255,0.45);
-      --shadow: 0 12px 28px rgba(37,99,235,0.12);
-    }
-
-    body.dark {
-      --bg: #0b1220;
-      --bg2: #111827;
-      --card: rgba(17,24,39,0.84);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --primary: #3b82f6;
-      --primary2: #60a5fa;
-      --success: #22c55e;
-      --danger: #f87171;
-      --warning: #fbbf24;
-      --border: rgba(255,255,255,0.08);
-      --shadow: 0 12px 30px rgba(0,0,0,0.35);
-    }
-
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(96,165,250,0.28), transparent 28%),
-        radial-gradient(circle at top right, rgba(37,99,235,0.18), transparent 22%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      transition: background 0.25s ease, color 0.25s ease;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.52);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    body.dark .topbar {
-      background: rgba(15,23,42,0.55);
-    }
-
-    .topbar-inner {
-      max-width: 1180px;
-      margin: auto;
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-size: 24px;
-      color: white;
-      background: linear-gradient(135deg, var(--primary), var(--primary2));
-      box-shadow: var(--shadow);
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: 22px;
-      line-height: 1.1;
-    }
-
-    .brand p {
-      margin: 4px 0 0;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .nav a, .mode-btn {
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 14px;
-      font-size: 14px;
-      font-weight: 700;
-      box-shadow: var(--shadow);
-      cursor: pointer;
-    }
-
-    .container {
-      max-width: 1180px;
-      margin: auto;
-      padding: 22px 16px 40px;
-    }
-
-    .hero {
-      margin-top: 10px;
-      padding: 34px 24px;
-      border-radius: 32px;
-      color: white;
-      background: linear-gradient(135deg, rgba(37,99,235,0.95), rgba(96,165,250,0.92));
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      top: -60px;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.12);
-    }
-
-    .hero h2 {
-      position: relative;
-      margin: 0 0 12px;
-      font-size: 38px;
-      line-height: 1.1;
-      max-width: 720px;
-    }
-
-    .hero p {
-      position: relative;
-      margin: 0;
-      max-width: 760px;
-      line-height: 1.8;
-      font-size: 16px;
-      color: rgba(255,255,255,0.95);
-    }
-
-    .hero-actions {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .hero-btn {
-      border: none;
-      padding: 12px 18px;
-      border-radius: 16px;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-btn.primary {
-      background: white;
-      color: #2563eb;
-    }
-
-    .hero-btn.secondary {
-      background: rgba(255,255,255,0.14);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.22);
-    }
-
-    .badges {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .badge {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.16);
-      border: 1px solid rgba(255,255,255,0.22);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .top-ad, .bottom-ad {
-      margin-top: 18px;
-      padding: 18px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.55);
-      border: 2px dashed rgba(148,163,184,0.35);
-      color: var(--muted);
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-
-    body.dark .top-ad,
-    body.dark .bottom-ad {
-      background: rgba(17,24,39,0.7);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 16px;
-      margin-top: 18px;
-    }
-
-    @media (min-width: 760px) {
-      .stats {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .stat {
-      padding: 18px;
-      border-radius: 24px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-    }
-
-    .stat h3 {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .stat .big {
-      margin-top: 8px;
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    .section-title {
-      margin: 30px 0 14px;
-      font-size: 26px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-
-    @media (min-width: 980px) {
-      .grid {
-        grid-template-columns: 1fr 1fr;
-      }
-      .wide {
-        grid-column: span 2;
-      }
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 22px;
-    }
-
-    .small {
-      margin: 0 0 14px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-
-    .row {
-      display: grid;
-      gap: 10px;
-    }
-
-    .row-2 {
-      grid-template-columns: 1fr;
-    }
-
-    .row-3 {
-      grid-template-columns: 1fr;
-    }
-
-    @media (min-width: 640px) {
-      .row-2 {
-        grid-template-columns: 1fr 1fr;
-      }
-      .row-3 {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-    }
-
-    input, textarea {
-      width: 100%;
-      border: 1px solid rgba(148,163,184,0.25);
-      background: rgba(255,255,255,0.4);
-      color: var(--text);
-      padding: 14px 15px;
-      border-radius: 18px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    body.dark input,
-    body.dark textarea {
-      background: rgba(15,23,42,0.36);
-      border-color: rgba(255,255,255,0.08);
-    }
-
-    input:focus, textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
-    }
-
-    textarea {
-      min-height: 150px;
-      resize: vertical;
-    }
-
-    .btn-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    button.action {
-      flex: 1;
-      min-width: 120px;
-      border: none;
-      border-radius: 18px;
-      padding: 14px 16px;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      color: white;
-      background: linear-gradient(135deg, var(--primary), var(--primary2));
-      box-shadow: var(--shadow);
-    }
-
-    button.secondary {
-      background: linear-gradient(135deg, var(--success), #4ade80);
-    }
-
-    button.danger {
-      background: linear-gradient(135deg, var(--danger), #fb7185);
-    }
-
-    button.warning {
-      color: #111827;
-      background: linear-gradient(135deg, var(--warning), #fcd34d);
-    }
-
-    .result {
-      margin-top: 14px;
-      min-height: 54px;
-      padding: 14px;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-weight: 800;
-      color: var(--primary);
-      background: rgba(37,99,235,0.08);
-    }
-
-    body.dark .result {
-      background: rgba(59,130,246,0.12);
-    }
-
-    .timer-display {
-      text-align: center;
-      font-size: 58px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      margin: 10px 0 16px;
-    }
-
-    .task-list {
-      list-style: none;
-      margin: 14px 0 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .task-list li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(148,163,184,0.10);
-      border: 1px solid rgba(148,163,184,0.16);
-    }
-
-    .task-list span {
-      flex: 1;
-      word-break: break-word;
-    }
-
-    .small-btn {
-      border: none;
-      border-radius: 12px;
-      padding: 10px 12px;
-      background: var(--danger);
-      color: white;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .feature-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .feature-item {
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(148,163,184,0.10);
-      border: 1px solid rgba(148,163,184,0.16);
-    }
-
-    .contact-box {
-      line-height: 2;
-      font-size: 15px;
-    }
-
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-      padding: 28px 10px 24px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Tools Pro</title>
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-ID"
+     crossorigin="anonymous"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f7fb;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
+}
+h1{margin:0}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  margin-top:15px;
+}
+button{
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  font-weight:bold;
+  margin-top:10px;
+}
+input{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  margin-top:5px;
+}
+.result{
+  margin-top:10px;
+  font-weight:bold;
+  text-align:center;
+}
+.top-ad,.bottom-ad{
+  margin-top:15px;
+  padding:15px;
+  border-radius:15px;
+  border:2px dashed #ccc;
+  text-align:center;
+}
+</style>
 </head>
+
 <body>
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="brand-icon">🎓</div>
-        <div>
-          <h1>Student Tools Pro</h1>
-          <p>Premium student experience</p>
-        </div>
-      </div>
 
-      <div class="nav">
-        <a href="#tools">Tools</a>
-        <a href="#about">About</a>
-        <a href="#ads">Ads</a>
-        <a href="#contact">Contact</a>
-        <button class="mode-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
-      </div>
-    </div>
-  </div>
+<div class="container">
 
-  <div class="container">
-    <section class="hero">
-      <h2>Study smarter with one premium student app.</h2>
-      <p>
-        Student Tools Pro gives students the most useful study features in one place:
-        GPA calculator, percentage calculator, focus timer, smart planner, notes, dark mode, and monetization-ready layout.
-      </p>
+<h1>🎓 Student Tools Pro</h1>
 
-      <div class="hero-actions">
-        <button class="hero-btn primary" onclick="copyLink()">Copy Link</button>
-        <button class="hero-btn secondary" onclick="shareSite()">Share Site</button>
-      </div>
+<!-- Top Ad -->
+<div class="top-ad">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="YOUR-ADSENSE-ID"
+     data-ad-slot="YOUR-TOP-AD-SLOT"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+</div>
 
-      <div class="badges">
-        <div class="badge">Premium Design</div>
-        <div class="badge">GPA</div>
-        <div class="badge">Timer</div>
-        <div class="badge">Planner</div>
-        <div class="badge">Notes</div>
-        <div class="badge">Ad Ready</div>
-      </div>
-    </section>
+<div class="card">
+<h2>📊 GPA Calculator</h2>
+<input id="g1" placeholder="Grade 1">
+<input id="g2" placeholder="Grade 2">
+<input id="g3" placeholder="Grade 3">
+<button onclick="gpa()">Calculate</button>
+<div class="result" id="gpa"></div>
+</div>
 
-    <div class="top-ad" id="ads">
-      Top Ad Space Ready — Place your Google AdSense code here later.
-    </div>
+<div class="card">
+<h2>📐 Percentage</h2>
+<input id="score" placeholder="Score">
+<input id="total" placeholder="Total">
+<button onclick="percent()">Calculate</button>
+<div class="result" id="per"></div>
+</div>
 
-    <section class="stats">
-      <div class="stat">
-        <h3>Tasks Saved</h3>
-        <div class="big" id="taskCount">0</div>
-      </div>
-      <div class="stat">
-        <h3>Notes Status</h3>
-        <div class="big" id="notesStatus">Empty</div>
-      </div>
-      <div class="stat">
-        <h3>Focus Timer</h3>
-        <div class="big">25 min</div>
-      </div>
-    </section>
+<div class="card">
+<h2>⏱ Timer</h2>
+<div id="time">25:00</div>
+<button onclick="start()">Start</button>
+<button onclick="reset()">Reset</button>
+</div>
 
-    <h2 class="section-title" id="tools">Main Tools</h2>
+<div class="card">
+<h2>📅 Tasks</h2>
+<input id="task">
+<button onclick="add()">Add</button>
+<ul id="list"></ul>
+</div>
 
-    <section class="grid">
-      <div class="card">
-        <h3>📊 GPA Calculator</h3>
-        <p class="small">Enter three grades and calculate your average instantly.</p>
-        <div class="row row-3">
-          <input id="g1" type="number" placeholder="Grade 1">
-          <input id="g2" type="number" placeholder="Grade 2">
-          <input id="g3" type="number" placeholder="Grade 3">
-        </div>
-        <div class="btn-group">
-          <button class="action" onclick="calcGPA()">Calculate GPA</button>
-          <button class="action warning" onclick="clearGPA()">Clear</button>
-        </div>
-        <div class="result" id="gpaResult">Your GPA result will appear here.</div>
-      </div>
+<div class="card">
+<h2>📝 Notes</h2>
+<textarea id="notes" style="width:100%;height:100px"></textarea>
+<button onclick="save()">Save</button>
+</div>
 
-      <div class="card">
-        <h3>📐 Percentage Calculator</h3>
-        <p class="small">Convert any score into a percentage quickly.</p>
-        <div class="row row-2">
-          <input id="score" type="number" placeholder="Your score">
-          <input id="total" type="number" placeholder="Total marks">
-        </div>
-        <div class="btn-group">
-          <button class="action" onclick="calcPercentage()">Calculate Percentage</button>
-          <button class="action warning" onclick="clearPercentage()">Clear</button>
-        </div>
-        <div class="result" id="percentageResult">Your percentage will appear here.</div>
-      </div>
+<!-- Bottom Ad -->
+<div class="bottom-ad">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="YOUR-ADSENSE-ID"
+     data-ad-slot="YOUR-BOTTOM-AD-SLOT"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+</div>
 
-      <div class="card">
-        <h3>⏱️ Focus Study Timer</h3>
-        <p class="small">Use a focused 25-minute study session.</p>
-        <div class="timer-display" id="time">25:00</div>
-        <div class="btn-group">
-          <button class="action" onclick="startTimer()">Start</button>
-          <button class="action secondary" onclick="pauseTimer()">Pause</button>
-          <button class="action danger" onclick="resetTimer()">Reset</button>
-        </div>
-        <div class="result" id="timerMessage">Stay focused and keep going.</div>
-      </div>
+</div>
 
-      <div class="card">
-        <h3>📅 Smart Study Planner</h3>
-        <p class="small">Add and remove your study tasks easily.</p>
-        <input id="task" type="text" placeholder="Enter your study task">
-        <div class="btn-group">
-          <button class="action" onclick="addTask()">Add Task</button>
-          <button class="action danger" onclick="clearAllTasks()">Clear All</button>
-        </div>
-        <ul class="task-list" id="taskList"></ul>
-      </div>
+<script>
+function gpa(){
+let a=+g1.value||0;
+let b=+g2.value||0;
+let c=+g3.value||0;
+gpa.innerText="GPA: "+((a+b+c)/3).toFixed(2);
+}
 
-      <div class="card wide">
-        <h3>📝 Smart Notes</h3>
-        <p class="small">Write and save your notes directly on your device.</p>
-        <textarea id="notes" placeholder="Write your notes here..."></textarea>
-        <div class="btn-group">
-          <button class="action" onclick="saveNotes()">Save Notes</button>
-          <button class="action danger" onclick="clearNotes()">Clear Notes</button>
-        </div>
-        <div class="result" id="notesMessage">Your notes are ready.</div>
-      </div>
+function percent(){
+let s=+score.value||0;
+let t=+total.value||0;
+per.innerText="Percentage: "+((s/t)*100).toFixed(2)+"%";
+}
 
-      <div class="card" id="about">
-        <h3>📘 About</h3>
-        <p class="small">A modern toolkit made for students.</p>
-        <div class="feature-list">
-          <div class="feature-item">✅ Elegant premium design</div>
-          <div class="feature-item">✅ GPA and percentage calculators</div>
-          <div class="feature-item">✅ Study timer</div>
-          <div class="feature-item">✅ Planner and notes</div>
-          <div class="feature-item">✅ Dark mode support</div>
-        </div>
-      </div>
+let sec=1500,interval;
 
-      <div class="card wide" id="contact">
-        <h3>📩 Contact</h3>
-        <p class="small">Replace this with your real details later.</p>
-        <div class="contact-box">
-          Email: yourname@example.com<br>
-          Instagram: @studenttoolspro<br>
-          Website: studenttoolspro.app
-        </div>
-      </div>
-    </section>
+function start(){
+interval=setInterval(()=>{
+if(sec>0){
+sec--;
+time.innerText=Math.floor(sec/60)+":"+(sec%60<10?"0":"")+sec%60;
+}
+},1000);
+}
 
-    <div class="bottom-ad">
-      Bottom Ad Space Ready — Add another AdSense block here later.
-    </div>
+function reset(){
+clearInterval(interval);
+sec=1500;
+time.innerText="25:00";
+}
 
-    <div class="footer">
-      Student Tools Pro • Built for students
-    </div>
-  </div>
+function add(){
+let li=document.createElement("li");
+li.innerText=task.value;
+list.appendChild(li);
+task.value="";
+}
 
-  <script>
-    function calcGPA() {
-      let a = parseFloat(document.getElementById("g1").value) || 0;
-      let b = parseFloat(document.getElementById("g2").value) || 0;
-      let c = parseFloat(document.getElementById("g3").value) || 0;
-      let avg = (a + b + c) / 3;
-      document.getElementById("gpaResult").innerText = "GPA: " + avg.toFixed(2);
-    }
+function save(){
+localStorage.setItem("notes",notes.value);
+}
 
-    function clearGPA() {
-      document.getElementById("g1").value = "";
-      document.getElementById("g2").value = "";
-      document.getElementById("g3").value = "";
-      document.getElementById("gpaResult").innerText = "Your GPA result will appear here.";
-    }
+window.onload=()=>{
+notes.value=localStorage.getItem("notes")||"";
+try{
+(adsbygoogle = window.adsbygoogle || []).push({});
+(adsbygoogle = window.adsbygoogle || []).push({});
+}catch(e){}
+}
+</script>
 
-    function calcPercentage() {
-      let score = parseFloat(document.getElementById("score").value) || 0;
-      let total = parseFloat(document.getElementById("total").value) || 0;
-      if (total <= 0) {
-        document.getElementById("percentageResult").innerText = "Please enter a valid total.";
-        return;
-      }
-      let percent = (score / total) * 100;
-      document.getElementById("percentageResult").innerText = "Percentage: " + percent.toFixed(2) + "%";
-    }
-
-    function clearPercentage() {
-      document.getElementById("score").value = "";
-      document.getElementById("total").value = "";
-      document.getElementById("percentageResult").innerText = "Your percentage will appear here.";
-    }
-
-    let timerSeconds = 1500;
-    let timerInterval = null;
-
-    function updateTimerDisplay() {
-      let minutes = Math.floor(timerSeconds / 60);
-      let seconds = timerSeconds % 60;
-      document.getElementById("time").innerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-    }
-
-    function startTimer() {
-      if (timerInterval) return;
-      document.getElementById("timerMessage").innerText = "Timer is running.";
-      timerInterval = setInterval(() => {
-        if (timerSeconds > 0) {
-          timerSeconds--;
-          updateTimerDisplay();
-        } else {
-          clearInterval(timerInterval);
-          timerInterval = null;
-          document.getElementById("timerMessage").innerText = "Study session finished.";
-        }
-      }, 1000);
-    }
-
-    function pauseTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      document.getElementById("timerMessage").innerText = "Timer paused.";
-    }
-
-    function resetTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerSeconds = 1500;
-      updateTimerDisplay();
-      document.getElementById("timerMessage").innerText = "Timer reset to 25:00.";
-    }
-
-    function addTask() {
-      let taskInput = document.getElementById("task");
-      let taskText = taskInput.value.trim();
-      if (!taskText) return;
-
-      let li = document.createElement("li");
-      let span = document.createElement("span");
-      span.innerText = taskText;
-
-      let delBtn = document.createElement("button");
-      delBtn.innerText = "Delete";
-      delBtn.className = "small-btn";
-      delBtn.onclick = function () {
-        li.remove();
-        saveTasks();
-        updateTaskCount();
-      };
-
-      li.appendChild(span);
-      li.appendChild(delBtn);
-      document.getElementById("taskList").appendChild(li);
-      taskInput.value = "";
-      saveTasks();
-      updateTaskCount();
-    }
-
-    function saveTasks() {
-      let tasks = [];
-      document.querySelectorAll("#taskList li span").forEach(item => {
-        tasks.push(item.innerText);
-      });
-      localStorage.setItem("student_tasks_pro", JSON.stringify(tasks));
-    }
-
-    function loadTasks() {
-      let savedTasks = JSON.parse(localStorage.getItem("student_tasks_pro") || "[]");
-      savedTasks.forEach(task => {
-        let li = document.createElement("li");
-        let span = document.createElement("span");
-        span.innerText = task;
-
-        let delBtn = document.createElement("button");
-        delBtn.innerText = "Delete";
-        delBtn.className = "small-btn";
-        delBtn.onclick = function () {
-          li.remove();
-          saveTasks();
-          updateTaskCount();
-        };
-
-        li.appendChild(span);
-        li.appendChild(delBtn);
-        document.getElementById("taskList").appendChild(li);
-      });
-    }
-
-    function clearAllTasks() {
-      document.getElementById("taskList").innerHTML = "";
-      localStorage.removeItem("student_tasks_pro");
-      updateTaskCount();
-    }
-
-    function updateTaskCount() {
-      document.getElementById("taskCount").innerText =
-        document.querySelectorAll("#taskList li").length;
-    }
-
-    function saveNotes() {
-      let notes = document.getElementById("notes").value;
-      localStorage.setItem("student_notes_pro", notes);
-      document.getElementById("notesMessage").innerText = "Notes saved successfully.";
-      updateNotesStatus();
-    }
-
-    function clearNotes() {
-      localStorage.removeItem("student_notes_pro");
-      document.getElementById("notes").value = "";
-      document.getElementById("notesMessage").innerText = "Notes cleared.";
-      updateNotesStatus();
-    }
-
-    function updateNotesStatus() {
-      let notes = document.getElementById("notes").value.trim();
-      document.getElementById("notesStatus").innerText = notes ? "Saved" : "Empty";
-    }
-
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark");
-      const isDark = document.body.classList.contains("dark");
-      localStorage.setItem("student_dark_mode_pro", isDark ? "on" : "off");
-      document.querySelector(".mode-btn").innerText = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
-    }
-
-    async function copyLink() {
-      const url = window.location.href;
-      try {
-        await navigator.clipboard.writeText(url);
-        alert("Link copied!");
-      } catch {
-        alert("Could not copy the link.");
-      }
-    }
-
-    async function shareSite() {
-      const data = {
-        title: "Student Tools Pro",
-        text: "Check out this student tools website!",
-        url: window.location.href
-      };
-
-      if (navigator.share) {
-        try {
-          await navigator.share(data);
-        } catch (e) {}
-      } else {
-        copyLink();
-      }
-    }
-
-    window.onload = function () {
-      updateTimerDisplay();
-
-      let savedNotes = localStorage.getItem("student_notes_pro");
-      if (savedNotes) {
-        document.getElementById("notes").value = savedNotes;
-      }
-
-      loadTasks();
-      updateTaskCount();
-      updateNotesStatus();
-
-      let darkMode = localStorage.getItem("student_dark_mode_pro");
-      if (darkMode === "on") {
-        document.body.classList.add("dark");
-        document.querySelector(".mode-btn").innerText = "☀️ Light Mode";
-      }
-    };
-  </script>
 </body>
 </html>
