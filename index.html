@@ -1,108 +1,299 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Student Tools">
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135755.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Student Tools">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135755.png">
 
-<title>Student Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-  font-family: Arial;
-  background: #f5f7fb;
-  text-align: center;
-  margin: 0;
-}
+  <title>Student Tools</title>
 
-h1 {
-  margin: 20px;
-}
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f2f2f7;
+      margin: 0;
+      color: #111;
+    }
 
-.card {
-  background: white;
-  margin: 20px;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 16px;
+    }
 
-input {
-  padding: 10px;
-  margin: 5px;
-  width: 80%;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin: 24px 0 8px;
+    }
 
-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  background: #007bff;
-  color: white;
-  margin-top: 10px;
-}
-</style>
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .card {
+      background: white;
+      margin-bottom: 18px;
+      padding: 20px;
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 0 0 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border-radius: 14px;
+      border: 1px solid #dcdde1;
+      font-size: 16px;
+      box-sizing: border-box;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: #007aff;
+      color: white;
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+
+    button:active {
+      background: #005ecb;
+    }
+
+    .secondary-btn {
+      background: #34c759;
+    }
+
+    .secondary-btn:active {
+      background: #28a745;
+    }
+
+    .danger-btn {
+      background: #ff3b30;
+      margin-top: 8px;
+    }
+
+    .danger-btn:active {
+      background: #d92c23;
+    }
+
+    #time {
+      font-size: 48px;
+      text-align: center;
+      margin: 12px 0;
+      font-weight: 700;
+    }
+
+    .result {
+      margin-top: 14px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #007aff;
+      text-align: center;
+    }
+
+    ul {
+      padding: 0;
+      list-style: none;
+      margin-top: 14px;
+    }
+
+    li {
+      background: #f2f2f7;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 8px;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .small-delete {
+      width: auto;
+      padding: 8px 12px;
+      margin: 0;
+      font-size: 14px;
+      border-radius: 10px;
+      background: #ff3b30;
+    }
+
+    .small-delete:active {
+      background: #d92c23;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <h1>🎓 Student Tools</h1>
+    <div class="subtitle">Your daily student helper</div>
 
-<h1>🎓 Student Tools</h1>
+    <div class="card">
+      <h2>📊 GPA Calculator</h2>
+      <input id="g1" type="number" placeholder="Grade 1">
+      <input id="g2" type="number" placeholder="Grade 2">
+      <input id="g3" type="number" placeholder="Grade 3">
+      <button onclick="calcGPA()">Calculate GPA</button>
+      <div class="result" id="gpaResult"></div>
+    </div>
 
-<div class="card">
-  <h2>📊 GPA Calculator</h2>
-  <input id="g1" placeholder="Grade 1"><br>
-  <input id="g2" placeholder="Grade 2"><br>
-  <input id="g3" placeholder="Grade 3"><br>
-  <button onclick="calc()">Calculate</button>
-  <h3 id="res"></h3>
-</div>
+    <div class="card">
+      <h2>⏱️ Study Timer</h2>
+      <div id="time">25:00</div>
+      <button onclick="startTimer()">Start Timer</button>
+      <button class="secondary-btn" onclick="resetTimer()">Reset Timer</button>
+    </div>
 
-<div class="card">
-  <h2>⏱️ Study Timer</h2>
-  <h1 id="time">25:00</h1>
-  <button onclick="start()">Start</button>
-</div>
+    <div class="card">
+      <h2>📅 Study Planner</h2>
+      <input id="task" type="text" placeholder="Enter your task">
+      <button onclick="addTask()">Add Task</button>
+      <ul id="taskList"></ul>
+    </div>
 
-<div class="card">
-  <h2>📅 Study Planner</h2>
-  <input id="task" placeholder="Enter task"><br>
-  <button onclick="addTask()">Add</button>
-  <ul id="list"></ul>
-</div>
+    <div class="card">
+      <h2>📐 Percentage Calculator</h2>
+      <input id="score" type="number" placeholder="Your score">
+      <input id="total" type="number" placeholder="Total marks">
+      <button onclick="calcPercentage()">Calculate Percentage</button>
+      <div class="result" id="percentageResult"></div>
+    </div>
 
-<script>
-function calc() {
-  let a = +g1.value || 0;
-  let b = +g2.value || 0;
-  let c = +g3.value || 0;
-  let avg = (a+b+c)/3;
-  res.innerText = "GPA: " + avg.toFixed(2);
-}
+    <div class="card">
+      <h2>📝 Notes</h2>
+      <textarea id="notes" placeholder="Write your notes here..."></textarea>
+      <button onclick="saveNotes()">Save Notes</button>
+      <button class="danger-btn" onclick="clearNotes()">Clear Notes</button>
+      <div class="result" id="notesMessage"></div>
+    </div>
+  </div>
 
-let t = 1500;
-function start(){
-  let interval = setInterval(()=>{
-    t--;
-    let m = Math.floor(t/60);
-    let s = t%60;
-    time.innerText = m+":"+(s<10?"0":"")+s;
-    if(t<=0) clearInterval(interval);
-  },1000);
-}
+  <script>
+    function calcGPA() {
+      let a = parseFloat(document.getElementById("g1").value) || 0;
+      let b = parseFloat(document.getElementById("g2").value) || 0;
+      let c = parseFloat(document.getElementById("g3").value) || 0;
 
-function addTask(){
-  let task = document.getElementById("task").value;
-  if(task){
-    let li = document.createElement("li");
-    li.innerText = task;
-    document.getElementById("list").appendChild(li);
-  }
-}
-</script>
+      let avg = (a + b + c) / 3;
+      document.getElementById("gpaResult").innerText = "GPA: " + avg.toFixed(2);
+    }
 
+    let timerSeconds = 1500;
+    let timerInterval = null;
+
+    function updateTimerDisplay() {
+      let minutes = Math.floor(timerSeconds / 60);
+      let seconds = timerSeconds % 60;
+      document.getElementById("time").innerText =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+
+      timerInterval = setInterval(() => {
+        if (timerSeconds > 0) {
+          timerSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          alert("Study session finished!");
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerSeconds = 1500;
+      updateTimerDisplay();
+    }
+
+    function addTask() {
+      let taskInput = document.getElementById("task");
+      let taskText = taskInput.value.trim();
+
+      if (!taskText) return;
+
+      let li = document.createElement("li");
+
+      let span = document.createElement("span");
+      span.innerText = taskText;
+
+      let delBtn = document.createElement("button");
+      delBtn.innerText = "Delete";
+      delBtn.className = "small-delete";
+      delBtn.onclick = function () {
+        li.remove();
+      };
+
+      li.appendChild(span);
+      li.appendChild(delBtn);
+
+      document.getElementById("taskList").appendChild(li);
+      taskInput.value = "";
+    }
+
+    function calcPercentage() {
+      let score = parseFloat(document.getElementById("score").value) || 0;
+      let total = parseFloat(document.getElementById("total").value) || 0;
+
+      if (total <= 0) {
+        document.getElementById("percentageResult").innerText = "Please enter a valid total.";
+        return;
+      }
+
+      let percent = (score / total) * 100;
+      document.getElementById("percentageResult").innerText =
+        "Percentage: " + percent.toFixed(2) + "%";
+    }
+
+    function saveNotes() {
+      let notes = document.getElementById("notes").value;
+      localStorage.setItem("student_notes", notes);
+      document.getElementById("notesMessage").innerText = "Notes saved successfully.";
+    }
+
+    function clearNotes() {
+      localStorage.removeItem("student_notes");
+      document.getElementById("notes").value = "";
+      document.getElementById("notesMessage").innerText = "Notes cleared.";
+    }
+
+    window.onload = function () {
+      updateTimerDisplay();
+
+      let savedNotes = localStorage.getItem("student_notes");
+      if (savedNotes) {
+        document.getElementById("notes").value = savedNotes;
+      }
+    };
+  </script>
 </body>
 </html>
