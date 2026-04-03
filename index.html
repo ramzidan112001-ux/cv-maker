@@ -44,7 +44,23 @@ function start(){
   },1000);
 }
 </script>
+<div style="background:white; padding:20px; margin:20px; border-radius:10px;">
+  <h2>📅 Study Planner</h2>
+  <input id="task" placeholder="Enter task"><br><br>
+  <button onclick="addTask()">Add</button>
+  <ul id="list"></ul>
+</div>
 
+<script>
+function addTask(){
+  let task = document.getElementById("task").value;
+  if(task){
+    let li = document.createElement("li");
+    li.innerText = task;
+    document.getElementById("list").appendChild(li);
+  }
+}
+</script>
 </body>
 <div style="background:white; padding:20px; margin:20px; border-radius:10px;">
   <h2>📅 Study Planner</h2>
