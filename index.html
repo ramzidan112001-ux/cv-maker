@@ -1,195 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Student Tools">
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135755.png">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Student Tools" />
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" />
 
   <title>Student Tools</title>
 
   <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #10b981;
+      --danger: #ef4444;
+      --border: #e5e7eb;
+      --shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --card: #111827;
+      --text: #f9fafb;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #22c55e;
+      --danger: #f87171;
+      --border: #1f2937;
+      --shadow: 0 12px 30px rgba(0,0,0,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f2f2f7;
       margin: 0;
-      color: #111;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #eaf0f8);
+      color: var(--text);
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 16px;
+    body.dark {
+      background: linear-gradient(180deg, #0f172a, #020617);
     }
 
-    h1 {
-      text-align: center;
-      font-size: 32px;
-      margin: 24px 0 8px;
+    .app {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 18px;
     }
 
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 20px;
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.72);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      padding: 14px 18px;
+    }
+
+    body.dark .topbar {
+      background: rgba(15,23,42,0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .topbar-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      background: linear-gradient(135deg, var(--primary), #60a5fa);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .brand p {
+      margin: 3px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .toggle-btn {
+      border: none;
+      border-radius: 14px;
+      background: var(--card);
+      color: var(--text);
+      padding: 12px 14px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .hero {
+      padding: 24px 6px 10px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, var(--primary), #60a5fa);
+      color: white;
+      border-radius: 28px;
+      padding: 28px 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card h2 {
+      margin: 0 0 10px;
+      font-size: 30px;
+    }
+
+    .hero-card p {
+      margin: 0;
       font-size: 16px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .wide {
+        grid-column: span 2;
+      }
     }
 
     .card {
-      background: white;
-      margin-bottom: 18px;
-      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 24px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease;
     }
 
-    h2 {
-      font-size: 20px;
-      margin: 0 0 15px;
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card h3 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    .card p.small {
+      margin-top: -4px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 640px) {
+      .row-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+      .row-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
     }
 
     input, textarea {
       width: 100%;
-      padding: 14px;
-      margin: 8px 0;
-      border-radius: 14px;
-      border: 1px solid #dcdde1;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      padding: 14px 15px;
+      border-radius: 16px;
       font-size: 16px;
-      box-sizing: border-box;
-      background: #fff;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
     }
 
     textarea {
-      min-height: 120px;
+      min-height: 130px;
       resize: vertical;
     }
 
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 14px;
-      background: #007aff;
-      color: white;
-      font-size: 17px;
-      font-weight: 600;
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-top: 12px;
-      cursor: pointer;
     }
 
-    button:active {
-      background: #005ecb;
-    }
-
-    .secondary-btn {
-      background: #34c759;
-    }
-
-    .secondary-btn:active {
-      background: #28a745;
-    }
-
-    .danger-btn {
-      background: #ff3b30;
-      margin-top: 8px;
-    }
-
-    .danger-btn:active {
-      background: #d92c23;
-    }
-
-    #time {
-      font-size: 48px;
-      text-align: center;
-      margin: 12px 0;
+    button.action {
+      flex: 1;
+      min-width: 120px;
+      border: none;
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 15px;
       font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: var(--primary);
+      transition: 0.2s ease;
+    }
+
+    button.action:hover {
+      background: var(--primary-dark);
+    }
+
+    button.secondary {
+      background: var(--secondary);
+    }
+
+    button.secondary:hover {
+      filter: brightness(0.95);
+    }
+
+    button.danger {
+      background: var(--danger);
+    }
+
+    button.danger:hover {
+      filter: brightness(0.95);
     }
 
     .result {
       margin-top: 14px;
-      font-size: 18px;
-      font-weight: 600;
-      color: #007aff;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(37,99,235,0.08);
+      color: var(--primary);
+      font-weight: 800;
       text-align: center;
-    }
-
-    ul {
-      padding: 0;
-      list-style: none;
-      margin-top: 14px;
-    }
-
-    li {
-      background: #f2f2f7;
-      padding: 12px;
-      border-radius: 12px;
-      margin-top: 8px;
-      text-align: left;
+      min-height: 52px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: center;
+    }
+
+    body.dark .result {
+      background: rgba(59,130,246,0.12);
+    }
+
+    .timer-display {
+      font-size: 56px;
+      font-weight: 800;
+      text-align: center;
+      margin: 10px 0 16px;
+      letter-spacing: 1px;
+    }
+
+    ul.task-list {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
 
-    .small-delete {
-      width: auto;
-      padding: 8px 12px;
-      margin: 0;
-      font-size: 14px;
-      border-radius: 10px;
-      background: #ff3b30;
+    ul.task-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(148,163,184,0.12);
+      border: 1px solid var(--border);
     }
 
-    .small-delete:active {
-      background: #d92c23;
+    ul.task-list span {
+      word-break: break-word;
+      flex: 1;
+    }
+
+    .small-btn {
+      border: none;
+      background: var(--danger);
+      color: white;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 26px 10px 40px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎓 Student Tools</h1>
-    <div class="subtitle">Your daily student helper</div>
-
-    <div class="card">
-      <h2>📊 GPA Calculator</h2>
-      <input id="g1" type="number" placeholder="Grade 1">
-      <input id="g2" type="number" placeholder="Grade 2">
-      <input id="g3" type="number" placeholder="Grade 3">
-      <button onclick="calcGPA()">Calculate GPA</button>
-      <div class="result" id="gpaResult"></div>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-icon">🎓</div>
+        <div>
+          <h1>Student Tools</h1>
+          <p>Your professional daily student assistant</p>
+        </div>
+      </div>
+      <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
     </div>
+  </div>
 
-    <div class="card">
-      <h2>⏱️ Study Timer</h2>
-      <div id="time">25:00</div>
-      <button onclick="startTimer()">Start Timer</button>
-      <button class="secondary-btn" onclick="resetTimer()">Reset Timer</button>
-    </div>
+  <div class="app">
+    <section class="hero">
+      <div class="hero-card">
+        <h2>Study smarter, not harder.</h2>
+        <p>
+          A clean all-in-one toolkit for students: calculate GPA, manage study time,
+          plan tasks, check percentages, and save notes in one professional app.
+        </p>
+        <div class="badge-row">
+          <div class="badge">GPA</div>
+          <div class="badge">Timer</div>
+          <div class="badge">Planner</div>
+          <div class="badge">Notes</div>
+          <div class="badge">Percentages</div>
+        </div>
+      </div>
+    </section>
 
-    <div class="card">
-      <h2>📅 Study Planner</h2>
-      <input id="task" type="text" placeholder="Enter your task">
-      <button onclick="addTask()">Add Task</button>
-      <ul id="taskList"></ul>
-    </div>
+    <section class="grid">
+      <div class="card">
+        <h3>📊 GPA Calculator</h3>
+        <p class="small">Enter three grades to calculate your average GPA.</p>
+        <div class="row row-3">
+          <input id="g1" type="number" placeholder="Grade 1" />
+          <input id="g2" type="number" placeholder="Grade 2" />
+          <input id="g3" type="number" placeholder="Grade 3" />
+        </div>
+        <div class="btn-group">
+          <button class="action" onclick="calcGPA()">Calculate GPA</button>
+        </div>
+        <div class="result" id="gpaResult">Your GPA result will appear here.</div>
+      </div>
 
-    <div class="card">
-      <h2>📐 Percentage Calculator</h2>
-      <input id="score" type="number" placeholder="Your score">
-      <input id="total" type="number" placeholder="Total marks">
-      <button onclick="calcPercentage()">Calculate Percentage</button>
-      <div class="result" id="percentageResult"></div>
-    </div>
+      <div class="card">
+        <h3>📐 Percentage Calculator</h3>
+        <p class="small">Convert a score into a percentage instantly.</p>
+        <div class="row row-2">
+          <input id="score" type="number" placeholder="Your score" />
+          <input id="total" type="number" placeholder="Total marks" />
+        </div>
+        <div class="btn-group">
+          <button class="action" onclick="calcPercentage()">Calculate Percentage</button>
+        </div>
+        <div class="result" id="percentageResult">Your percentage will appear here.</div>
+      </div>
 
-    <div class="card">
-      <h2>📝 Notes</h2>
-      <textarea id="notes" placeholder="Write your notes here..."></textarea>
-      <button onclick="saveNotes()">Save Notes</button>
-      <button class="danger-btn" onclick="clearNotes()">Clear Notes</button>
-      <div class="result" id="notesMessage"></div>
+      <div class="card">
+        <h3>⏱️ Study Timer</h3>
+        <p class="small">Use a focused 25-minute study session.</p>
+        <div class="timer-display" id="time">25:00</div>
+        <div class="btn-group">
+          <button class="action" onclick="startTimer()">Start</button>
+          <button class="action secondary" onclick="pauseTimer()">Pause</button>
+          <button class="action danger" onclick="resetTimer()">Reset</button>
+        </div>
+        <div class="result" id="timerMessage">Stay focused and keep going.</div>
+      </div>
+
+      <div class="card">
+        <h3>📅 Study Planner</h3>
+        <p class="small">Add study tasks and remove them when done.</p>
+        <input id="task" type="text" placeholder="Enter your study task" />
+        <div class="btn-group">
+          <button class="action" onclick="addTask()">Add Task</button>
+        </div>
+        <ul class="task-list" id="taskList"></ul>
+      </div>
+
+      <div class="card wide">
+        <h3>📝 Smart Notes</h3>
+        <p class="small">Write and save your notes automatically on your device.</p>
+        <textarea id="notes" placeholder="Write your notes here..."></textarea>
+        <div class="btn-group">
+          <button class="action" onclick="saveNotes()">Save Notes</button>
+          <button class="action danger" onclick="clearNotes()">Clear Notes</button>
+        </div>
+        <div class="result" id="notesMessage">Your notes are ready.</div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Student Tools • Professional Edition
     </div>
   </div>
 
@@ -201,63 +461,6 @@
 
       let avg = (a + b + c) / 3;
       document.getElementById("gpaResult").innerText = "GPA: " + avg.toFixed(2);
-    }
-
-    let timerSeconds = 1500;
-    let timerInterval = null;
-
-    function updateTimerDisplay() {
-      let minutes = Math.floor(timerSeconds / 60);
-      let seconds = timerSeconds % 60;
-      document.getElementById("time").innerText =
-        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-    }
-
-    function startTimer() {
-      if (timerInterval) return;
-
-      timerInterval = setInterval(() => {
-        if (timerSeconds > 0) {
-          timerSeconds--;
-          updateTimerDisplay();
-        } else {
-          clearInterval(timerInterval);
-          timerInterval = null;
-          alert("Study session finished!");
-        }
-      }, 1000);
-    }
-
-    function resetTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerSeconds = 1500;
-      updateTimerDisplay();
-    }
-
-    function addTask() {
-      let taskInput = document.getElementById("task");
-      let taskText = taskInput.value.trim();
-
-      if (!taskText) return;
-
-      let li = document.createElement("li");
-
-      let span = document.createElement("span");
-      span.innerText = taskText;
-
-      let delBtn = document.createElement("button");
-      delBtn.innerText = "Delete";
-      delBtn.className = "small-delete";
-      delBtn.onclick = function () {
-        li.remove();
-      };
-
-      li.appendChild(span);
-      li.appendChild(delBtn);
-
-      document.getElementById("taskList").appendChild(li);
-      taskInput.value = "";
     }
 
     function calcPercentage() {
@@ -274,6 +477,104 @@
         "Percentage: " + percent.toFixed(2) + "%";
     }
 
+    let timerSeconds = 1500;
+    let timerInterval = null;
+
+    function updateTimerDisplay() {
+      let minutes = Math.floor(timerSeconds / 60);
+      let seconds = timerSeconds % 60;
+      document.getElementById("time").innerText =
+        minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+
+      document.getElementById("timerMessage").innerText = "Timer is running.";
+      timerInterval = setInterval(() => {
+        if (timerSeconds > 0) {
+          timerSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          document.getElementById("timerMessage").innerText = "Study session finished.";
+          alert("Study session finished!");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      document.getElementById("timerMessage").innerText = "Timer paused.";
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerSeconds = 1500;
+      updateTimerDisplay();
+      document.getElementById("timerMessage").innerText = "Timer reset to 25:00.";
+    }
+
+    function addTask() {
+      let taskInput = document.getElementById("task");
+      let taskText = taskInput.value.trim();
+
+      if (!taskText) return;
+
+      let li = document.createElement("li");
+
+      let span = document.createElement("span");
+      span.innerText = taskText;
+
+      let delBtn = document.createElement("button");
+      delBtn.innerText = "Delete";
+      delBtn.className = "small-btn";
+      delBtn.onclick = function () {
+        li.remove();
+        saveTasks();
+      };
+
+      li.appendChild(span);
+      li.appendChild(delBtn);
+      document.getElementById("taskList").appendChild(li);
+
+      taskInput.value = "";
+      saveTasks();
+    }
+
+    function saveTasks() {
+      let tasks = [];
+      document.querySelectorAll("#taskList li span").forEach(item => {
+        tasks.push(item.innerText);
+      });
+      localStorage.setItem("student_tasks", JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+      let savedTasks = JSON.parse(localStorage.getItem("student_tasks") || "[]");
+      savedTasks.forEach(task => {
+        let li = document.createElement("li");
+
+        let span = document.createElement("span");
+        span.innerText = task;
+
+        let delBtn = document.createElement("button");
+        delBtn.innerText = "Delete";
+        delBtn.className = "small-btn";
+        delBtn.onclick = function () {
+          li.remove();
+          saveTasks();
+        };
+
+        li.appendChild(span);
+        li.appendChild(delBtn);
+        document.getElementById("taskList").appendChild(li);
+      });
+    }
+
     function saveNotes() {
       let notes = document.getElementById("notes").value;
       localStorage.setItem("student_notes", notes);
@@ -286,12 +587,27 @@
       document.getElementById("notesMessage").innerText = "Notes cleared.";
     }
 
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("student_dark_mode", isDark ? "on" : "off");
+      document.querySelector(".toggle-btn").innerText = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+    }
+
     window.onload = function () {
       updateTimerDisplay();
 
       let savedNotes = localStorage.getItem("student_notes");
       if (savedNotes) {
         document.getElementById("notes").value = savedNotes;
+      }
+
+      loadTasks();
+
+      let darkMode = localStorage.getItem("student_dark_mode");
+      if (darkMode === "on") {
+        document.body.classList.add("dark");
+        document.querySelector(".toggle-btn").innerText = "☀️ Light Mode";
       }
     };
   </script>
