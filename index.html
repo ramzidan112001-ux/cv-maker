@@ -1,121 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2386067854383195"
-crossorigin="anonymous"></script>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Tools Pro</title>
-
+<title>RealRush</title>
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#f4f7fb;
-}
-
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-}
-
-h1{
-    text-align:center;
-}
-
-.card{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    margin-top:20px;
-    text-align:center;
-}
-
-button{
-    padding:10px 20px;
-    border:none;
-    border-radius:10px;
-    background:#007bff;
-    color:white;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#0056b3;
-}
-
-input{
-    padding:10px;
-    width:80%;
-    margin-top:10px;
-    border-radius:10px;
-    border:1px solid #ccc;
-}
+body { font-family: Arial; text-align: center; background: #111; color: white; }
+button { padding: 15px; font-size: 18px; margin: 10px; border-radius: 10px; }
+#timer { font-size: 30px; margin: 20px; }
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<h1>🔥 RealRush</h1>
+<p>عندك دقيقتين فقط!</p>
 
-<h1>Student Tools Pro</h1>
-<p style="text-align:center;">Tools to help students study smarter 🚀</p>
+<div id="timer">120</div>
 
-<!-- GPA -->
-<div class="card">
-<h2>GPA Calculator</h2>
-<input id="grade" placeholder="Enter your grade">
-<br><br>
-<button onclick="calcGPA()">Calculate</button>
-<p id="gpaResult"></p>
-</div>
-
-<!-- Timer -->
-<div class="card">
-<h2>Study Timer</h2>
-<p id="timer">25:00</p>
-<button onclick="startTimer()">Start</button>
-</div>
-
-<!-- Notes -->
-<div class="card">
-<h2>Quick Notes</h2>
-<input id="noteInput" placeholder="Write a note">
-<br><br>
-<button onclick="saveNote()">Save</button>
-<p id="notes"></p>
-</div>
-
-</div>
+<input type="file" accept="image/*,video/*" id="upload">
+<br>
+<button onclick="start()">ابدأ</button>
 
 <script>
-// GPA
-function calcGPA(){
-    let grade = document.getElementById("grade").value;
-    document.getElementById("gpaResult").innerText = "Your GPA: " + grade;
-}
+let time = 120;
+let interval;
 
-// Timer
-let time = 1500;
-function startTimer(){
-    let interval = setInterval(()=>{
-        let minutes = Math.floor(time / 60);
-        let seconds = time % 60;
-        document.getElementById("timer").innerText = minutes + ":" + (seconds<10?"0":"") + seconds;
+function start() {
+    clearInterval(interval);
+    time = 120;
+    interval = setInterval(() => {
+        document.getElementById("timer").innerText = time;
         time--;
-        if(time < 0) clearInterval(interval);
-    },1000);
-}
-
-// Notes
-function saveNote(){
-    let note = document.getElementById("noteInput").value;
-    document.getElementById("notes").innerText += "• " + note + "\n";
+        if (time < 0) {
+            clearInterval(interval);
+            alert("انتهى الوقت!");
+        }
+    }, 1000);
 }
 </script>
 
